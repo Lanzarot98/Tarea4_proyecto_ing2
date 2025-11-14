@@ -448,7 +448,8 @@
                     <!-- Stats Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                         <template x-for="stat in stats" :key="stat.id">
-                            <div class="glass-morphism rounded-xl p-6 hover-lift" :data-aos="stat.animation">
+                            <!-- :data-aos="stat.animation" -->
+                            <div class="glass-morphism rounded-xl p-6 hover-lift" >
                                 <div class="flex items-center justify-between mb-4">
                                     <div :class="stat.bgColor" class="p-3 rounded-lg">
                                         <i :class="stat.icon + ' ' + stat.iconColor" class="text-2xl"></i>
@@ -472,7 +473,7 @@
                     <!-- Charts Section -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                         <!-- Attendance Chart -->
-                        <div class="glass-morphism rounded-xl p-6" data-aos="fade-right">
+                        <div class="glass-morphism rounded-xl p-6" >
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Asistencia Semanal</h3>
                                 <select class="px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-sm">
@@ -487,7 +488,7 @@
                         </div>
                         
                         <!-- Events Distribution -->
-                        <div class="glass-morphism rounded-xl p-6" data-aos="fade-left">
+                        <div class="glass-morphism rounded-xl p-6" >
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Distribución de Eventos</h3>
                                 <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition">
@@ -499,7 +500,7 @@
                     </div>
                     
                     <!-- Recent Events Table -->
-                    <div class="glass-morphism rounded-xl overflow-hidden" data-aos="fade-up">
+                    <div class="glass-morphism rounded-xl overflow-hidden">
                         <div class="px-6 py-4 bg-gradient-to-r from-blue-500 to-purple-600">
                             <h3 class="text-lg font-semibold text-white">Eventos Recientes</h3>
                         </div>
@@ -1464,29 +1465,73 @@
                     }
                     
                     // Events Donut Chart
-                    const donutOptions = {
-                        series: [44, 25, 19, 12],
-                        chart: {
-                            type: 'donut',
-                            height: 300
-                        },
-                        labels: ['Conferencias', 'Talleres', 'Networking', 'Otros'],
-                        colors: ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b'],
-                        legend: {
-                            position: 'bottom'
-                        },
-                        responsive: [{
-                            breakpoint: 480,
-                            options: {
-                                chart: {
-                                    width: 200
-                                },
-                                legend: {
-                                    position: 'bottom'
-                                }
-                            }
-                        }]
-                    };
+                    // Events Donut Chart
+const donutOptions = {
+    series: [44, 25, 19, 12],
+    chart: {
+        type: 'donut',
+        height: 320
+    },
+    labels: ['Conferencias', 'Talleres', 'Networking', 'Otros'],
+    colors: ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b'],
+    plotOptions: {
+        pie: {
+            donut: {
+                size: '65%'
+            }
+        }
+    },
+    legend: {
+        position: 'bottom',
+        horizontalAlign: 'center',
+        floating: false,
+        fontSize: '13px',
+        markers: {
+            width: 10,
+            height: 10,
+            radius: 12
+        },
+        itemMargin: {
+            horizontal: 8,
+            vertical: 4
+        }
+    },
+    responsive: [
+        {
+            // tablets
+            breakpoint: 1024,
+            options: {
+                chart: {
+                    height: 300
+                },
+                legend: {
+                    fontSize: '12px',
+                    itemMargin: {
+                        horizontal: 6,
+                        vertical: 3
+                    }
+                }
+            }
+        },
+        {
+            // móviles
+            breakpoint: 640,
+            options: {
+                chart: {
+                    height: 260
+                },
+                legend: {
+                    fontSize: '10px',
+                    itemMargin: {
+                        horizontal: 4,
+                        vertical: 2
+                    }
+                }
+            }
+        }
+    ]
+};
+
                     
                     const donutChart = document.querySelector("#eventsDonutChart");
                     if (donutChart) {
